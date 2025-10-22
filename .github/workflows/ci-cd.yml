@@ -27,6 +27,10 @@ jobs:
       # ติดตั้ง sonar-scanner globally เพื่อให้คำสั่ง npm run sonar ใช้งานได้
       - name: Install Global Sonar Scanner
         run: npm install -g sonar-scanner
+
+      # คำสั่งนี้จะใช้ 'jest --coverage' จาก package.json เพื่อสร้าง app/coverage/lcov.info
+      - name: Run Unit Tests and Generate Coverage Report (LCOV)
+        run: npx jest --coverage --config app/package.json --forceExit
           
       - name: Install App Dependencies
         run: npm install --prefix app
@@ -43,7 +47,9 @@ jobs:
             -Dsonar.organization=jarot571 \
             -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
             -Dsonar.token=${{ secrets.SONAR_TOKEN }} \
-            -Dsonar.sources=app 
+            -Dsonar.sources=app \
+            -Dsonar.javascript.lcov.reportPaths=app/coverage/lcov.info \
+            -Dsonar.coverage.exclusions=app/index.js
 
       - name: Deley to ensure Quality Gate Status is ready
         run : echo "waiting for 30 second for SonarQube processing.." && sleep 20s
