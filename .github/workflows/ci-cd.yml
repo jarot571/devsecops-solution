@@ -27,15 +27,16 @@ jobs:
       # ติดตั้ง sonar-scanner globally เพื่อให้คำสั่ง npm run sonar ใช้งานได้
       - name: Install Global Sonar Scanner
         run: npm install -g sonar-scanner
-
-      # คำสั่งนี้จะใช้ 'jest --coverage' จาก package.json เพื่อสร้าง app/coverage/lcov.info
-      - name: Run Unit Tests and Generate Coverage Report (LCOV)
-        run: npx jest --coverage --config app/package.json --forceExit
           
       - name: Install App Dependencies
         run: npm install --prefix app
 
-        # 1. รัน SonarQube Scan
+      # คำสั่งนี้จะใช้ 'jest --coverage' จาก package.json เพื่อสร้าง app/coverage/lcov.info
+      - name: Run Unit Tests and Generate Coverage Report (LCOV)
+        run: npx jest --coverage --config app/package.json --forceExit
+
+        
+      # 1. รัน SonarQube Scan
       - name: SonarQube Scan
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -43,8 +44,8 @@ jobs:
         run: |
           # ใช้ sonar-scanner ที่ติดตั้งไว้ global
           sonar-scanner \
-            -Dsonar.projectKey=jarot571_devsecops-solution \
-            -Dsonar.organization=jarot571 \
+            -Dsonar.projectKey=kitthapat-j_devsecops-fullsolution \
+            -Dsonar.organization=kitthapat-j \
             -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
             -Dsonar.token=${{ secrets.SONAR_TOKEN }} \
             -Dsonar.sources=app \
