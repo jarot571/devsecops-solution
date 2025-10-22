@@ -44,8 +44,8 @@ jobs:
         run: |
           # ใช้ sonar-scanner ที่ติดตั้งไว้ global
           sonar-scanner \
-            -Dsonar.projectKey=kitthapat-j_devsecops-fullsolution \
-            -Dsonar.organization=kitthapat-j \
+            -Dsonar.projectKey=jarot571_devsecops-solution \
+            -Dsonar.organization=jarot571 \
             -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
             -Dsonar.token=${{ secrets.SONAR_TOKEN }} \
             -Dsonar.sources=app \
